@@ -12,15 +12,19 @@ class WorkoutController < ApplicationController
 
     def create
         @workout = Workout.create(workout_params)
-        if @workout.save
+        if @workout
             render json: {status:created,
                     workout: @workout}
+        else
+            render json: {message: 'unable to create workout'}
+            
+        end
     end
 
     def update
         @workout = Workout.find(params[:id])
         if @workout
-            @workout.update(user_params)
+            @workout.update(workout_params)
             render json: {message: 'workout successfully updated', status: updated}
         else
             render json: {message: 'unable to update workout '}
@@ -40,10 +44,13 @@ class WorkoutController < ApplicationController
 
 private
 
-def user_params
+def workout_params
 #Whitelisting for strng parameters
-params.require(:user).permit(:username, :password)
+params.require(:workout).permit(:username, :password)
 end
+
+def find_workout
+    @workout = Workout.find(params[:id])
 end
 
 end
