@@ -5,34 +5,34 @@ class WorkoutController < ApplicationController
     end
 
     def show
-        @workout = User.find(params[:id])
+        @workout = Workout.find(params[:id])
         render json: {@workout}
     end
 
 
     def create
-        @workout = User.create(workout_params)
+        @workout = Workout.create(workout_params)
         if @workout.save
             render json: {status:created,
                     workout: @workout}
     end
 
     def update
-        @user = user.find(params[:id])
-        if @user
-            @user.update(user_params)
-            render json: {message: 'user successfully updated', status: updated}
+        @workout = Workout.find(params[:id])
+        if @workout
+            @workout.update(user_params)
+            render json: {message: 'workout successfully updated', status: updated}
         else
-            render json: {message: 'unable to update user '}
+            render json: {message: 'unable to update workout '}
     end
 
     def destroy
-        @user = user.find(params[:id])
-        if @user
-            @user.destroy
-            render json: {message: 'user successfully destroyed', status: destroyed}
+        @workout = Workout.find(params[:id])
+        if @workout
+            @workout.destroy
+            render json: {message: 'workout successfully destroyed', status: destroyed}
         else
-            render json: {message: 'unable to delete user' }
+            render json: {message: 'unable to delete workout' }
             
         end
     end
