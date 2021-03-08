@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_104955) do
+ActiveRecord::Schema.define(version: 2021_03_07_223807) do
+
+  create_table "photos", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "training_season"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_photos_on_user_id"
+  end
+
+  create_table "training_seasons", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name"
+    t.integer "start_date"
+    t.integer "end_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_training_seasons_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
@@ -19,4 +37,17 @@ ActiveRecord::Schema.define(version: 2020_12_18_104955) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "workouts", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name"
+    t.integer "weight"
+    t.integer "reps"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_workouts_on_user_id"
+  end
+
+  add_foreign_key "photos", "users"
+  add_foreign_key "training_seasons", "users"
+  add_foreign_key "workouts", "users"
 end

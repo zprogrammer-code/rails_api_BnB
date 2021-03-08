@@ -1,0 +1,2 @@
+class TrainingSeason < ApplicationRecord
+end
